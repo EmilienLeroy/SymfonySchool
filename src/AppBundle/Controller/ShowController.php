@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Type\ShowType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -33,6 +34,8 @@ class ShowController extends Controller
      */
     public function createAction()
     {
-        return $this->render('show/create.html.twig');
+        $form = $this->createForm(ShowType::class);
+
+        return $this->render('show/create.html.twig',['showForm'=>$form->createView()]);
     }
 }
