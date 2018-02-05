@@ -24,7 +24,15 @@ class ShowController extends Controller
     public function categoriesAction()
     {
         return $this->render('show/categories.html.twig',[
-            'categories' => ['Web design','HTML','Freebies','JS','CSS','TUTO']
+            'categories' => ['Web design','HTML','EHEH','JS','CSS','TUTO']
         ]);
+    }
+
+    /**
+     * @Route("/create",name="create")
+     */
+    public function createAction()
+    {
+        return $this->render('show/create.html.twig');
     }
 }
