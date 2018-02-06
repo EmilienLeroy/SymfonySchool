@@ -26,25 +26,25 @@ class Show
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="euh ??")
+     * @Assert\NotBlank(message="euh ??", groups={"create","update"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"create","update"})
      */
     private $abstract;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"create","update"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"create","update"})
      */
     private $author;
 
@@ -55,7 +55,7 @@ class Show
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\Image(minHeight=300, minWidth=750)
+     * @Assert\Image(minHeight=300, minWidth=750, groups={"create"})
      */
     private $image;
 
@@ -64,6 +64,24 @@ class Show
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $categories;
+
+    private $tmpimage;
+
+    /**
+     * @return mixed
+     */
+    public function getTmpimage()
+    {
+        return $this->tmpimage;
+    }
+
+    /**
+     * @param mixed $tmpimage
+     */
+    public function setTmpimage($tmpimage)
+    {
+        $this->tmpimage = $tmpimage;
+    }
 
     /**
      * @return mixed

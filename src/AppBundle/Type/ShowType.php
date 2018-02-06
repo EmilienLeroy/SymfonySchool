@@ -29,6 +29,6 @@ class ShowType extends AbstractType
             ->add('country',CountryType::class)
             ->add('author')
             ->add('date')
-            ->add('image',FileType::class);
+            ->add('tmpimage',FileType::class,['label' => 'image']);
     }
 }

@@ -60,4 +60,23 @@ class ShowController extends Controller
         }
         return $this->render('show/create.html.twig',['showForm'=>$form->createView()]);
     }
+
+    /**
+     * @Route("/update/{id}", name="_update")
+     */
+    public function updateAction(Show $show, Request $request)
+    {
+        $showForm = $this->createForm(ShowType::class, $show, ['validation_groups'=> ['update']]);
+
+        $showForm->handleRequest($request);
+
+        if($showForm->isValid()){
+            dump($show);die;
+            $this->addFlash('success', 'eheh show update');
+
+            return $this->redirectToRoute('show_list');
+        }
+
+        return $this->render('show/create.html.twig', ['showForm'=>$showForm->createView()]);
+    }
 }
