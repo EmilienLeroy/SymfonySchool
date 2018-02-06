@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="s_show")
  */
 class Show
 {
@@ -51,6 +52,28 @@ class Show
      * @ORM\Column(type="string")
      */
     private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Categories")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $categories;
+
+    /**
+     * @return mixed
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param mixed $categories
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+    }
 
     /**
      * @return mixed

@@ -8,6 +8,8 @@
 
 namespace AppBundle\Type;
 
+use AppBundle\Entity\Categories;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -19,11 +21,14 @@ class ShowType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('category')
+            ->add('categories',EntityType::class, [
+                'class'=> Categories::class,
+                'choice_label'=>'name',
+                ])
             ->add('abstract')
             ->add('country',CountryType::class)
             ->add('author')
-            ->add('releasedDate')
-            ->add('mainPicture',FileType::class);
+            ->add('date')
+            ->add('image',FileType::class);
     }
 }

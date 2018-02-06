@@ -9,13 +9,18 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Type\ShowType;
+use AppBundle\Entity\Show;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route(name="show")
+ */
 class ShowController extends Controller
 {
     /**
-     * @Route("/show",name="show_list")
+     * @Route("/show",name="_list")
      */
     public function listAction()
     {
@@ -30,12 +35,32 @@ class ShowController extends Controller
     }
 
     /**
-     * @Route("/create",name="create")
+     * @Route("/create",name="_create")
      */
-    public function createAction()
+    public function createAction(Request $request)
     {
-        $form = $this->createForm(ShowType::class);
+        $show = new Show();
+        $form = $this->createForm(ShowType::class, $show);
 
+        $form->handleRequest($request);
+        if($form->isValid()){
+
+            $generatedFileName = time().''.$show->getCategories()->getName().'.'.$show->getImage()->guessClientExtension();
+            $path = $this->getParameter('kernel.project_dir').'/web'.$this->getParameter('upload_directory_file');
+
+
+            $show->getImage()->move($path, $generatedFileName);
+
+            $show->setImage($generatedFileName);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($show);
+            $em->flush();
+
+            $this->addFlash('success','victoire ehehe');
+
+            return $this->redirectToRoute('show_list');
+        }
         return $this->render('show/create.html.twig',['showForm'=>$form->createView()]);
     }
 }
