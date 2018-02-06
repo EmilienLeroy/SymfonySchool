@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\File\FileUploader;
 use AppBundle\Type\ShowType;
 use AppBundle\Entity\Show;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -37,7 +38,7 @@ class ShowController extends Controller
     /**
      * @Route("/create",name="_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, FileUploader $fileUploader)
     {
         $show = new Show();
         $form = $this->createForm(ShowType::class, $show);
@@ -45,11 +46,7 @@ class ShowController extends Controller
         $form->handleRequest($request);
         if($form->isValid()){
 
-            $generatedFileName = time().'_'.$show->getCategories()->getName().'.'.$show->getImage()->guessClientExtension();
-            $path = $this->getParameter('kernel.project_dir').'/web'.$this->getParameter('upload_directory_file');
-
-
-            $show->getImage()->move($path, $generatedFileName);
+            $generatedFileName = $fileUploader->upload($show->getImage(),$show->getCategories()->getName());
 
             $show->setImage($generatedFileName);
 

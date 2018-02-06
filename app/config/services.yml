@@ -30,6 +30,8 @@ services:
         tags: ['controller.service_arguments']
 
     # add more services, or override services that need manual wiring
-    # AppBundle\Service\ExampleService:
-    #     arguments:
-    #         $someArgument: 'some_value'
+
+    AppBundle\File\FileUploader:
+        arguments:
+            $uploadDirectoryFile: '%upload_directory_file%'
+            $pathTOproject: '%kernel.project_dir%'

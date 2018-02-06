@@ -27,6 +27,13 @@
     {% endblock %}
 {% endembed %}
 
+{% for label, messages in app.flashes %}
+<div class="alert alert-success" role="alert">
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+</div>
+{% endfor %}
 <!-- Page Content -->
 <div class="container">
 
