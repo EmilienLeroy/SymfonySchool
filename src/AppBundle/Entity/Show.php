@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -25,21 +26,25 @@ class Show
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="euh ??")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
      */
     private $abstract;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
      */
     private $country;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      */
     private $author;
 
@@ -50,6 +55,7 @@ class Show
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\Image(minHeight=300, minWidth=750)
      */
     private $image;
 

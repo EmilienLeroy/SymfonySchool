@@ -45,7 +45,7 @@ class ShowController extends Controller
         $form->handleRequest($request);
         if($form->isValid()){
 
-            $generatedFileName = time().''.$show->getCategories()->getName().'.'.$show->getImage()->guessClientExtension();
+            $generatedFileName = time().'_'.$show->getCategories()->getName().'.'.$show->getImage()->guessClientExtension();
             $path = $this->getParameter('kernel.project_dir').'/web'.$this->getParameter('upload_directory_file');
 
 
