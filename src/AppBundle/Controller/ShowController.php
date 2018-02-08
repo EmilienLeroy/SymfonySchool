@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 use AppBundle\File\FileUploader;
 use AppBundle\Type\ShowType;
 use AppBundle\Entity\Show;
+use AppBundle\Entity\Categories;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,8 +31,10 @@ class ShowController extends Controller
 
     public function categoriesAction()
     {
+        $repo = $this->getDoctrine()->getRepository(Categories::class);
+        $categories = $repo->findAll();
         return $this->render('show/categories.html.twig',[
-            'categories' => ['Web design','HTML','EHEH','JS','CSS','TUTO']
+            'categories' => $categories
         ]);
     }
 
@@ -46,7 +49,7 @@ class ShowController extends Controller
         $form->handleRequest($request);
         if($form->isValid()){
 
-            $generatedFileName = $fileUploader->upload($show->getImage(),$show->getCategories()->getName());
+            $generatedFileName = $fileUploader->upload($show->getTmpimage(),$show->getCategories()->getName());
 
             $show->setImage($generatedFileName);
 
@@ -78,5 +81,16 @@ class ShowController extends Controller
         }
 
         return $this->render('show/create.html.twig', ['showForm'=>$showForm->createView()]);
+    }
+
+    /**
+     * @Route("/update", name="_list_update")
+     */
+    public function listupdateAction()
+    {
+        $repo = $this->getDoctrine()->getRepository(Show::class);
+        $show = $repo->findAll();
+        //dump($show);die;
+        return $this->render('show/list_update.html.twig',['show'=>$show]);
     }
 }

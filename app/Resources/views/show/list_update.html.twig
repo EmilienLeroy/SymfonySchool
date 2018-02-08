@@ -1,0 +1,16 @@
+{%  extends "show/base.html.twig" %}
+{% block headtitle %}
+    <h1 class="my-4">Update
+        <small>Eheh</small>
+    </h1>
+{% endblock headtitle %}
+
+{% block content %}
+    <ul>
+    {% for shows in show %}
+        
+        <li><a href="/update/{{shows.id}}">{{shows.name}}</a></li>
+                        
+    {% endfor %}
+    </ul>
+{% endblock content %}
