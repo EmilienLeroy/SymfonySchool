@@ -69,14 +69,20 @@ class ShowController extends Controller
     /**
      * @Route("/update/{id}", name="_update")
      */
-    public function updateAction(Show $show, Request $request)
+    public function updateAction(Show $show, Request $request, FileUploader $fileUploader)
     {
         $showForm = $this->createForm(ShowType::class, $show, ['validation_groups'=> ['update']]);
 
         $showForm->handleRequest($request);
 
         if($showForm->isValid()){
-            dump($show);die;
+            if($show->getTmpimage() != null){
+                $generatedFileName = $fileUploader->upload($show->getTmpimage(),$show->getCategories()->getName());
+                $show->setImage($generatedFileName);   
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($show);
+            $em->flush();
             $this->addFlash('success', 'eheh show update');
 
             return $this->redirectToRoute('show_list');
