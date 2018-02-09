@@ -26,7 +26,9 @@ class ShowController extends Controller
      */
     public function listAction()
     {
-        return $this->render('show/list.html.twig');
+        $repo = $this->getDoctrine()->getRepository(Show::class);
+        $show = $repo->findAll();
+        return $this->render('show/list.html.twig',['show' => $show]);
     }
 
     public function categoriesAction()
