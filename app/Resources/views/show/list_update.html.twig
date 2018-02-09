@@ -6,11 +6,9 @@
 {% endblock headtitle %}
 
 {% block content %}
-    <ul>
+    <div class="list-group">
     {% for shows in show %}
-        
-        <li><a href="/update/{{shows.id}}">{{shows.name}}</a></li>
-                        
+        <a class='list-group-item' href="/update/{{shows.id}}">{{shows.name}}</a>                 
     {% endfor %}
-    </ul>
+    </div>
 {% endblock content %}

@@ -2,15 +2,14 @@
     <h5 class="card-header">Categories ({{ categories | length }})</h5>
     <div class="card-body">
         <div class="row">
-
             {% for index,category in categories %}
                 {% if(index%3)==0 %}
                 <div class="col-lg-6"><ul class="list-unstyled mb-0">
                 {% endif %}
-                        <li><a href="#">{{ category.name }}</a></li>
-                        {% if(index%3)==2 %}
-                            </ul></div>
-                        {% endif %}
+                <li><a href="#">{{ category.name }}</a></li>
+                {% if(index%3)==2 %}
+                </ul>
+                {% endif %}
             {% endfor %}
             </div>
         </div>

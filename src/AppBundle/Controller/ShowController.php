@@ -10,6 +10,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\File\FileUploader;
 use AppBundle\Type\ShowType;
+use AppBundle\Type\SearchType;
 use AppBundle\Entity\Show;
 use AppBundle\Entity\Categories;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -100,5 +101,19 @@ class ShowController extends Controller
         $show = $repo->findAll();
         //dump($show);die;
         return $this->render('show/list_update.html.twig',['show'=>$show]);
+    }
+
+    /**
+     * @Route(name="_search")
+     */
+    public function searchAction(Request $request)
+    {
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+        
+        if($form->isValid()){
+        
+        }
+        return $this->render('_includes/search.html.twig',['showForm'=>$form->createView()]);
     }
 }
