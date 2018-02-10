@@ -12,16 +12,19 @@ My first project with symfony 3.4 for the school. It's a simple CRUD using Doctr
 Before install the project you need to have :
 
 
-* PHP 7
-* Composer
-* Mysql
+* [PHP 7](http://php.net/)
+* [Composer](https://getcomposer.org/download/)
+* [Mysql](https://www.mysql.com/)
 
 
 ### Installing
 
-To install the project you need to use this command.
+In first clone the project.
+```
+git clone https://github.com/EmilienLeroy/SymphonySchool.git
+```
 
-In first install the project. Answer to the question with your database address, port and password.
+Install the project. Answer to the question with your database address, port and password.
 
 ```
 composer install
@@ -45,7 +48,9 @@ And find the version number to execute the migration :
 php bin/console doctrine:migrations:execute "version"
 ```
 
-After do this you can run the project with this command :
+### Start the project
+
+After do the installation you can run the project with this command :
 
 ```
 php bin/console server:run
@@ -53,14 +58,14 @@ php bin/console server:run
 
 Now you can connect to the project with this address :
 
-
-```
-http://127.0.0.1:8000
-```
-
-or
-
 ```
 http://localhost:8000
 ```
 
+## Documentation
+
+Coming soon ...
+
+## License
+
+[The MIT License (MIT)](https://opensource.org/licenses/MIT)
