@@ -30,7 +30,7 @@ class CategoryController extends Controller
             $em->persist($category);
             $em->flush();
 
-            $this->addFlash('success','victoire ehehe');
+            $this->addFlash('success','Category create success !');
 
             return $this->redirectToRoute('show_list');
         }

@@ -2,7 +2,7 @@
     <h5 class="card-header">Search</h5>
     <div class="card-body">
         
-            {{ form_start(showForm, {'action': path('show_search'), 'method': 'POST'}) }}
+            {{ form_start(showForm, {'action': path('show_find'), 'method': 'POST'}) }}
             <div class="input-group">
             {{ form_widget(showForm.name) }}
             {{ form_errors(showForm.name) }}

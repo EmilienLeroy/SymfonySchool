@@ -28,7 +28,8 @@
 {% endembed %}
 
 {% for label, messages in app.flashes %}
-<div class="alert alert-success" role="alert">
+    {% if label == 'success'%}<div class="alert alert-success" role="alert">{% endif %}
+    {% if label == 'error'%}<div class="alert alert-danger" role="alert">{% endif %}
     {% for message in messages %}
         {{ message }}
     {% endfor %}

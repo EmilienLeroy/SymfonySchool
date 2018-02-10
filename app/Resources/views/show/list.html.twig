@@ -1,7 +1,7 @@
 {%  extends "show/base.html.twig" %}
 {% block headtitle %}
-    <h1 class="my-4">ShowRooms
-        <small>Ehehehs</small>
+    <h1 class="my-4">All
+        <small>Shows</small>
     </h1>
 {% endblock headtitle %}
 {% block content %}
@@ -16,8 +16,8 @@
             <a href="#" class="btn btn-primary">Read More &rarr;</a>
         </div>
         <div class="card-footer text-muted">
-            Posted on January 1, 2017 by
-            <a href="#">Start Bootstrap</a>
+            Created the {{s.date|date('Y-m-d')}} by
+            <a href="#">{{s.author}}</a>
         </div>
     </div>
 

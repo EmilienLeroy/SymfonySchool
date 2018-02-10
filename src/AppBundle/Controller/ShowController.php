@@ -60,7 +60,7 @@ class ShowController extends Controller
             $em->persist($show);
             $em->flush();
 
-            $this->addFlash('success','victoire ehehe');
+            $this->addFlash('success','Create success !');
 
             return $this->redirectToRoute('show_list');
         }
@@ -84,7 +84,7 @@ class ShowController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($show);
             $em->flush();
-            $this->addFlash('success', 'eheh show update');
+            $this->addFlash('success', 'Update success !');
 
             return $this->redirectToRoute('show_list');
         }
@@ -110,10 +110,20 @@ class ShowController extends Controller
     {
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
-        
-        if($form->isValid()){
-        
-        }
         return $this->render('_includes/search.html.twig',['showForm'=>$form->createView()]);
+    }
+
+    /**
+     * @Route("/find", name="_find")
+     */
+    public function findAction(Request $request)
+    {
+        $find = $request->request->get('search');
+        $repo = $this->getDoctrine()->getRepository(Show::class);
+        $show = $repo->findBy(
+            ['name' => $find['name']]
+        );
+        if(empty($show)) $this->addFlash('error', 'No show find sorry...');
+        return $this->render('show/list.html.twig',['show' => $show]);
     }
 }
