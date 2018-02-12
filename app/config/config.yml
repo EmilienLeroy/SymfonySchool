@@ -77,3 +77,11 @@ doctrine_migrations:
     name: Application Migrations
     organize_migrations: false # Version >= 1.2, possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false
     custom_template: ~ # Version >= 1.2, path to your custom migrations template
+
+csa_guzzle:
+    profiler: '%kernel.debug%'
+    logger: true
+    clients:
+        OMDB_api:
+            config:
+                base_uri: 'http://www.omdbapi.com/'

@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\File\FileUploader;
+use AppBundle\ShowFinder\ShowFinder;
 use AppBundle\Type\ShowType;
 use AppBundle\Type\SearchType;
 use AppBundle\Entity\Show;
@@ -29,10 +30,17 @@ class ShowController extends Controller
     /**
      * @Route("/show",name="_list")
      */
-    public function listAction()
+    public function listAction(Request $request, ShowFinder $showFinder)
     {
         $repo = $this->getDoctrine()->getRepository(Show::class);
-        $show = $repo->findAll();
+        $session = $request->getSession();
+        if($session->has('query_search_shows')){
+            $show = $showFinder->searchByName($session->get('query_search_shows'));
+            dump($show);
+        }else{
+            $show = $repo->findAll();
+        }
+
         return $this->render('show/list.html.twig',['show' => $show]);
     }
 
@@ -122,6 +130,7 @@ class ShowController extends Controller
      */
     public function findAction(Request $request )
     {
+        /*
         $find = $request->request->get('search');
         $repo = $this->getDoctrine()->getRepository(Show::class);
         $show = $repo->findBy(
@@ -129,6 +138,9 @@ class ShowController extends Controller
         );
         if(empty($show)) $this->addFlash('error', 'No show find sorry...');
         return $this->render('show/list.html.twig',['show' => $show]);
+        */
+        $request->getSession()->set('query_search_shows',$request->request->get('search'));
+        return $this->redirectToRoute('show_list');
     }
 
     /**

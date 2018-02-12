@@ -35,3 +35,11 @@ services:
         arguments:
             $uploadDirectoryFile: '%upload_directory_file%'
             $pathTOproject: '%kernel.project_dir%'
+
+    AppBundle\ShowFinder\DBShowFinder:
+        tags: ['show.finder']
+
+    AppBundle\ShowFinder\OMDShowFinder:
+        tags: ['show.finder']
+        arguments:
+            - '@csa_guzzle.client.OMDB_api'

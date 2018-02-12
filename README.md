@@ -78,6 +78,17 @@ http://localhost:8000
 
 Coming soon ...
 
+Debug service :
+
+```
+bin/console debug:container ShowFinder
+```
+
+Injecteur dependence:
+
+var/cache/dev/appDevDebugProjectContainer
+
+
 ## License
 
 [The MIT License (MIT)](https://opensource.org/licenses/MIT)
