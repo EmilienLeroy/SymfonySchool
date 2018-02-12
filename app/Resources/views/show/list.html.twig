@@ -6,6 +6,22 @@
 {% endblock headtitle %}
 {% block content %}
 
+    {% if OMDB is defined %}
+    <div class="card mb-4">
+        <img class="card-img-top" src="{{ OMDB.Poster}}" alt="Card image cap">
+        <div class="card-body">
+            <h2 class="card-title">{{OMDB.Title}}</h2>
+            <p class="card-text">{{OMDB.Plot}}</p>
+            <a href="#" class="btn btn-primary">Read More &rarr;</a>
+        </div>
+        <div class="card-footer text-muted">
+            Created the {{OMDB.Released}} by
+            <a href="#">{{OMDB.Director}}</a>
+            <p style="display: inline; float: right;">Article Powered By OMDBApi</p>
+        </div>
+    </div>
+    {% endif %}
+
     {% for s in show %}
     <!-- Blog Post -->
     <div class="card mb-4">
@@ -26,7 +42,7 @@
         </div>
     </div>
 
-        {% endfor %}
+    {% endfor %}
     <!-- Pagination -->
     <ul class="pagination justify-content-center mb-4">
         <li class="page-item">

@@ -36,12 +36,15 @@ class ShowController extends Controller
         $session = $request->getSession();
         if($session->has('query_search_shows')){
             $show = $showFinder->searchByName($session->get('query_search_shows'));
-            dump($show);
+            $local = $show['local_database'];
+            $OMDB = $show['Api_OMD'];
+            $session->remove('query_search_shows');
+            return $this->render('show/list.html.twig',['show' => $local, 'OMDB' => $OMDB]);
         }else{
             $show = $repo->findAll();
+            $session->remove('query_search_shows');
+            return $this->render('show/list.html.twig',['show' => $show]);
         }
-
-        return $this->render('show/list.html.twig',['show' => $show]);
     }
 
     public function categoriesAction()

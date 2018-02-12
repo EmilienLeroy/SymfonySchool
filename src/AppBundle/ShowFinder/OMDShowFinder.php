@@ -17,12 +17,12 @@ class OMDShowFinder implements ShowFinderInterface
 
     public function findByName($query)
     {
-        $result = $this->client->get('/?apikey=cc84b86e&type=series&t="walking"');
-        dump(\GuzzleHttp\json_decode($result->getBody()));die;
+        $result = $this->client->get('/?apikey=cc84b86e&type=series&t='.$query['name']);
+        return \GuzzleHttp\json_decode($result->getBody());
     }
 
     public function getName()
     {
-        return 'Api OMD';
+        return 'Api_OMD';
     }
 }

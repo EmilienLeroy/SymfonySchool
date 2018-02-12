@@ -21,6 +21,6 @@ class DBShowFinder implements ShowFinderInterface
 
     public function getName()
     {
-        return 'local database';
+        return 'local_database';
     }
 }
