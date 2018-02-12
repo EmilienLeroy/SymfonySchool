@@ -14,6 +14,10 @@
             <h2 class="card-title">{{s.name}}</h2>
             <p class="card-text">{{s.abstract}}</p>
             <a href="#" class="btn btn-primary">Read More &rarr;</a>
+            <form action="{{ path('show_delete')  }}" method="POST">
+                <input type="hidden" name="show_id" value="{{ s.id }}">
+                <button href="{{ path('show_delete') }}" type="submit" class="btn btn-danger">Delete</button>
+            </form>
         </div>
         <div class="card-footer text-muted">
             Created the {{s.date|date('Y-m-d')}} by

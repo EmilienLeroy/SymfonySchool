@@ -16,6 +16,7 @@ use AppBundle\Entity\Categories;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @Route(name="show")
@@ -125,5 +126,28 @@ class ShowController extends Controller
         );
         if(empty($show)) $this->addFlash('error', 'No show find sorry...');
         return $this->render('show/list.html.twig',['show' => $show]);
+    }
+
+    /**
+     * @Route("/delete", name="_delete")
+     */
+    public function deleteAction(Request $request)
+    {
+        $doctrine = $this->getDoctrine();
+        $delete = $request->request->get('show_id');
+        $repo = $doctrine->getRepository(Show::class);
+        dump($doctrine);
+        $show = $repo->findOneById($delete);
+
+        if(empty($show)){
+            throw new NotFoundHttpException(sprintf('error'));
+        }
+
+        $doctrine->getManager()->remove($show);
+        $doctrine->getManager()->flush();
+
+        $this->addFlash('success','Delete success');
+        return $this->redirectToRoute('show_list');
+
     }
 }
