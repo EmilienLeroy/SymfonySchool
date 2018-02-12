@@ -33,10 +33,16 @@ composer install
 Create the database with doctrine.
 
 ```
-php bin/console doctrine:create
+php bin/console doctrine:database:create
 ```
 
 After you need to migrate the database with the last version. To do this use this command :
+
+```
+php bin/console doctrine:migrations:migrate
+```
+
+When you update the database you need to migrate the database:
 
 ```
 php bin/console doctrine:migrations:diff
@@ -47,6 +53,12 @@ And find the version number to execute the migration :
 ```
 php bin/console doctrine:migrations:execute "version"
 ```
+
+for drop the database :
+```
+php bin/console doctrine:database:drop --force
+```
+
 
 ### Start the project
 
