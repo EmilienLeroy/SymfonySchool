@@ -17,6 +17,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * @Route(name="show")
@@ -117,7 +120,7 @@ class ShowController extends Controller
     /**
      * @Route("/find", name="_find")
      */
-    public function findAction(Request $request)
+    public function findAction(Request $request )
     {
         $find = $request->request->get('search');
         $repo = $this->getDoctrine()->getRepository(Show::class);
@@ -131,7 +134,7 @@ class ShowController extends Controller
     /**
      * @Route("/delete", name="_delete")
      */
-    public function deleteAction(Request $request)
+    public function deleteAction(Request $request,CsrfTokenManagerInterface $crsfTokenMan)
     {
         $doctrine = $this->getDoctrine();
         $delete = $request->request->get('show_id');
@@ -143,10 +146,17 @@ class ShowController extends Controller
             throw new NotFoundHttpException(sprintf('error'));
         }
 
-        $doctrine->getManager()->remove($show);
-        $doctrine->getManager()->flush();
+        $crsfToken = new CsrfToken('delete_show',$request->request->get('_csrf_token'));
 
-        $this->addFlash('success','Delete success');
+        if($crsfTokenMan->isTokenValid($crsfToken)){
+            $doctrine->getManager()->remove($show);
+            $doctrine->getManager()->flush();
+            $this->addFlash('success','Delete success');
+        }else{
+            $this->addFlash('error','Token is not okay');
+        }
+
+
         return $this->redirectToRoute('show_list');
 
     }
