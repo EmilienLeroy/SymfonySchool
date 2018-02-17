@@ -1,6 +1,6 @@
 # Learn more about services, parameters and containers at
 # https://symfony.com/doc/current/service_container.html
-parameters:
+parameters:    
     #parameter_name: value
 
 services:
@@ -43,3 +43,4 @@ services:
         tags: ['show.finder']
         arguments:
             - '@csa_guzzle.client.OMDB_api'
+            - '%OMDB.key%'
