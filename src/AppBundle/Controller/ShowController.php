@@ -21,6 +21,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * @Route(name="show")
@@ -28,7 +29,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class ShowController extends Controller
 {
     /**
-     * @Route("/show",name="_list")
+     * @Route("/",name="_list")
      */
     public function listAction(Request $request, ShowFinder $showFinder)
     {
@@ -175,4 +176,5 @@ class ShowController extends Controller
         return $this->redirectToRoute('show_list');
 
     }
+
 }

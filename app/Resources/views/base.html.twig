@@ -1,13 +1,76 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Blog Home - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{  asset('assets/css/blog-home.css')}}" rel="stylesheet">
+
+</head>
+
+<body>
+
+{#{% include "_includes/menu.html.twig" %}#}
+{% embed "_includes/menu.html.twig" %}
+    {% block menu_title %}
+        {{ parent() }} <p style='color:rgba(255,255,255,.5);display:inline;'>by Emilien Leroy</p>
+    {% endblock %}
+{% endembed %}
+
+{% for label, messages in app.flashes %}
+{% if label == 'success'%}<div class="alert alert-success" role="alert">{% endif %}
+    {% if label == 'error'%}<div class="alert alert-danger" role="alert">{% endif %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    {% endfor %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+
+                {% block headtitle %}
+                    <h1 class="my-4">Page Heading
+                        <small>Secondary Text</small>
+                    </h1>
+                {% endblock headtitle %}
+
+                {% block content %} {% endblock content %}
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
 </html>

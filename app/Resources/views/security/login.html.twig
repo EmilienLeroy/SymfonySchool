@@ -1,0 +1,18 @@
+{%  extends "base.html.twig" %}
+{% block headtitle %}
+    <h1 class="my-4">Login
+        <small>Shows</small>
+    </h1>
+{% endblock headtitle %}
+
+{% block content %}
+    <form action="{{ path('security_login_check') }}" method="post">
+        <label for="email">Email</label>
+        <input type="text" name="email" class="form-control">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control">
+
+        <input type="submit" class="btn btn-action">
+    </form>
+{% endblock content %}
