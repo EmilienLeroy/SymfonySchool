@@ -32,6 +32,9 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column
+     */
     private $email;
 
     /**

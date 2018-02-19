@@ -4,6 +4,7 @@ security:
 
     encoders:
         Symfony\Component\Security\Core\User\User: bcrypt
+        AppBundle\Entity\User: bcrypt
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:

@@ -6,6 +6,7 @@ use AppBundle\Type\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 
 /**
@@ -18,7 +19,7 @@ class UserController extends Controller
     /**
      * @Route("/create",name="create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, EncoderFactoryInterface $encoderFactory)
     {
         $user = new User();
         $userform = $this->createForm(UserType::class,$user);
@@ -27,6 +28,10 @@ class UserController extends Controller
 
         if($userform->isValid()){
             $em = $this->getDoctrine()->getManager();
+
+            $encoder = $encoderFactory->getEncoder($user);
+            $hashPassword = $encoder->encodePassword($user->getPassword(),null);
+            $user->setPassword($hashPassword);
 
             $em->persist($user);
             $em->flush();
