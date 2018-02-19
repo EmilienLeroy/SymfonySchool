@@ -70,7 +70,7 @@ class ShowController extends Controller
             $generatedFileName = $fileUploader->upload($show->getTmpimage(),$show->getCategories()->getName());
 
             $show->setImage($generatedFileName);
-
+            $show->setDatasource(Show::DATA_SOURCE_DB);
             $em = $this->getDoctrine()->getManager();
             $em->persist($show);
             $em->flush();

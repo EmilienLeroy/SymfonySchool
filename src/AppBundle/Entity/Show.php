@@ -17,6 +17,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Show
 {
+    const DATA_SOURCE_OMDB = 'OMDB';
+    const DATA_SOURCE_DB = 'DB';
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -65,7 +67,30 @@ class Show
      */
     private $categories;
 
+    /**
+     * @ORM\Column
+     */
+    private $datasource;
+
     private $tmpimage;
+
+    /**
+     * @return mixed
+     */
+    public function getDatasource()
+    {
+        return $this->datasource;
+    }
+
+    /**
+     * @param mixed $datasource
+     */
+    public function setDatasource($datasource)
+    {
+        $this->datasource = $datasource;
+    }
+
+
 
     /**
      * @return mixed
