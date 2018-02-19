@@ -1,0 +1,14 @@
+{%  extends "show/base.html.twig" %}
+{% block headtitle %}
+    <h1 class="my-4">Update
+        <small>Show</small>
+    </h1>
+{% endblock headtitle %}
+
+{% block content %}
+    <div class="list-group">
+        {% for user in users %}
+            <a class='list-group-item' href="/update/">{{user.fullname}}</a>
+        {% endfor %}
+    </div>
+{% endblock content %}

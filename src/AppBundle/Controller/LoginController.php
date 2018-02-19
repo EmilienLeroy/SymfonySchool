@@ -38,4 +38,12 @@ class LoginController extends Controller
     {
         //nothing
     }
+
+    /**
+     * @Route("/logout",name="logout")
+     */
+    public function logoutAction()
+    {
+
+    }
 }

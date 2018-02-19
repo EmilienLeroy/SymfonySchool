@@ -15,6 +15,10 @@ security:
                        password: '$2y$13$n4F2bEgtZ3/Gq0/a7V.CmOGrW2omUg51XKuZrnPeIPc2.TXKoQ5la'
                        roles: 'ROLE_USER'
 
+        database:
+            entity:
+                class: AppBundle\Entity\User
+                property: email
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -27,13 +31,14 @@ security:
 
         secured_area:
             pattern: ^/
-            provider: in_memory
+            provider: database
             form_login:
                  login_path: /login
                  check_path: /login_check
                  username_parameter: email
                  password_parameter: password
                  always_use_default_target_path: true
+            logout: ~
 
         main:
             anonymous: ~

@@ -44,4 +44,15 @@ class UserController extends Controller
         return $this->render('user/create.html.twig',['userForm' => $userform->createView()]);
     }
 
+    /**
+     * @Route("/list", name="list")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listAction()
+    {
+        return $this->render('user/list.html.twig',[
+            'users' => $this->getDoctrine()->getRepository(User::class)->findAll()
+        ]);
+    }
+
 }
