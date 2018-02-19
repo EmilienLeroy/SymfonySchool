@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -43,6 +44,17 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @ORM\OneToMany(targetEntity="Show", mappedBy="author")
+     */
+    private $shows;
+
+
+    public function __construct()
+    {
+        $this->shows = new ArrayCollection();
+    }
+
+    /**
      * @return mixed
      */
     public function getFullname()
@@ -60,7 +72,7 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        return ['ROLE_ADMIN'];
     }
 
     public function getPassword()
@@ -91,5 +103,15 @@ class User implements UserInterface
     public function setUsername($email)
     {
         $this->email = $email;
+    }
+
+    public function addShow(Show $show)
+    {
+        if(!$this->shows->contains($show)) $this->shows->add($show);
+    }
+
+    public function removeShow()
+    {
+
     }
 }

@@ -6,9 +6,16 @@
 {% endblock headtitle %}
 
 {% block content %}
-    <div class="list-group">
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
         {% for user in users %}
-            <a class='list-group-item' href="/update/">{{user.fullname}}</a>
+            <tr>
+                <td><a href="#">{{user.fullname}}</a></td>
+                <td>{{ user.username }}</td>
+            </tr>
         {% endfor %}
-    </div>
+        </table>
 {% endblock content %}
