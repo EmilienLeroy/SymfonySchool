@@ -3,48 +3,49 @@
  * Created by PhpStorm.
  * User: digital
  * Date: 20/02/2018
- * Time: 11:36
+ * Time: 14:03
  */
 
 namespace AppBundle\Controller\API;
 
-use JMS\Serializer\SerializerInterface;
+
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Entity\Categories;
 use Symfony\Component\HttpFoundation\Response;
-
+use JMS\Serializer\SerializationContext;
 
 /**
- * Class CategoryController
+ * Class UserController
  * @package AppBundle\Controller\API
- * @Route(name="api_categories_")
+ * @Route(name="api_user_")
  */
-class CategoryController extends Controller
+class UserController extends Controller
 {
+
     /**
      * @Method({"GET"})
-     * @Route("/categories", name="list")
+     * @Route("/users",name="list")
      */
     public function listAction(SerializerInterface $serializer)
     {
-        $categories = $this->getDoctrine()->getRepository('AppBundle:Categories')->findAll();
-
-        $data = $serializer->serialize($categories,'json');
-
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
+        $serialzationContext = SerializationContext::create();
+        $data = $serializer->serialize($user,'json',$serialzationContext->setGroups(['user']));
         return new Response($data, Response::HTTP_OK, ['Content-Type' => 'application\json']);
     }
 
     /**
      * @Method({"GET"})
-     * @Route("/categories/{id}", name="get")
+     * @Route("/users/{id}", name="get")
      */
-    public function getAction(Categories $categories, SerializerInterface $serializer)
+    public function getAction(User $user,SerializerInterface $serializer)
     {
-        $data = $serializer->serialize($categories,'json');
-
+        $serialzationContext = SerializationContext::create();
+        $data = $serializer->serialize($user,'json',$serialzationContext->setGroups(['user']));
         return new Response($data, Response::HTTP_OK, ['Content-Type' => 'application\json']);
     }
 }

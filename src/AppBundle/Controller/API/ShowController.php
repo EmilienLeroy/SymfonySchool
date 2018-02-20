@@ -8,26 +8,45 @@
 
 namespace AppBundle\Controller\API;
 
+use AppBundle\Entity\Show;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Serializer\SerializerInterface;
+use JMS\Serializer\SerializerInterface;
 use AppBundle\Entity\Categories;
 use Symfony\Component\HttpFoundation\Response;
+use JMS\Serializer\SerializationContext;
 
+/**
+ * Class ShowController
+ * @package AppBundle\Controller\API
+ * @Route(name="api_show_")
+ */
 class ShowController extends Controller
 {
     /**
      * @Method({"GET"})
-     * @Route("/shows", name="api_show_list")
+     * @Route("/shows", name="list")
      */
     public function listAction(SerializerInterface $serializer)
     {
-        $shows = $this->getDoctrine()->getRepository('AppBundle::Show')->findAll();
+        $shows = $this->getDoctrine()->getRepository('AppBundle:Show')->findAll();
+        $serialzationContext = SerializationContext::create();
+        $data = $serializer->serialize($shows,'json',$serialzationContext->setGroups(['show']));
 
-        $data = $serializer->serialize($shows, 'json');
+        return new Response($data, Response::HTTP_OK, ['Content-Type' => 'application\json']);
+    }
 
-        return new Response($data);
+    /**
+     * @Method({"GET"})
+     * @Route("/shows/{id}", name="get")
+     */
+    public function getAction(Show $shows, SerializerInterface $serializer)
+    {
+        $serialzationContext = SerializationContext::create();
+        $data = $serializer->serialize($shows,'json',$serialzationContext->setGroups(['show']));
+
+        return new Response($data, Response::HTTP_OK, ['Content-Type' => 'application\json']);
     }
 }
