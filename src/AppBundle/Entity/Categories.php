@@ -43,4 +43,9 @@ class Categories
     {
         $this->name = $name;
     }
+
+    public function update(Categories $categories)
+    {
+        $this->name = $categories->getName();
+    }
 }

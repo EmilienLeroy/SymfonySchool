@@ -69,4 +69,21 @@ class CategoryController extends Controller
         }
         return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
     }
+
+    /**
+     * @Method({"PUT"})
+     * @Route("/categories/{id}", name="put")
+     */
+    public function updateAction(Categories $categories,Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
+    {
+        $data = $serializer->deserialize($request->getContent(),Categories::class,'json');
+        $error = $validator->validate($data);
+
+        if($error->count() == 0){
+            $categories->update($data);
+            $this->getDoctrine()->getManager()->flush();
+            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
+        }
+        return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+    }
 }
