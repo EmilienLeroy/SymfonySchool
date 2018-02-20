@@ -30,6 +30,9 @@ class User implements UserInterface
      */
     private $fullname;
 
+    /**
+     * @ORM\Column(type="json_array")
+     */
     private $roles;
 
     /**
@@ -72,7 +75,12 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        return $this->roles;
+    }
+
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
     }
 
     public function getPassword()

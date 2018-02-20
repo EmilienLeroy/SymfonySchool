@@ -2,7 +2,9 @@
 
 namespace AppBundle\Type;
 
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -20,7 +22,23 @@ class UserType extends AbstractType
                'first_options'  => ['label' => 'Password'],
                'second_options' => ['label' => 'Repeat Password']
            ])
+           ->add('roles')
            ->add('save',SubmitType::class)
+       ;
+
+       $builder->get('roles')
+           ->addModelTransformer(
+               new CallbackTransformer(
+                   function ($roleAsArray){
+                       if(!empty($roleAsArray)){
+                           return implode(', ',$roleAsArray);
+                       }
+                   },
+                   function ($rolesAsString){
+                       return explode(', ', $rolesAsString);
+                   }
+               )
+           )
        ;
     }
 }

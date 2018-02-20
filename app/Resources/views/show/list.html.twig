@@ -29,12 +29,14 @@
         <div class="card-body">
             <h2 class="card-title">{{s.name}}</h2>
             <p class="card-text">{{s.abstract}}</p>
+            {% if is_granted('NOT USED',s) %}
             <a href="#" class="btn btn-primary">Read More &rarr;</a>
             <form action="{{ path('show_delete')  }}" method="POST">
                 <input type="hidden" name="show_id" value="{{ s.id }}">
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete_show') }}">
                 <button href="{{ path('show_delete') }}" type="submit" class="btn btn-danger">Delete</button>
             </form>
+            {% endif %}
         </div>
         <div class="card-footer text-muted">
             Created the {{s.date|date('Y-m-d')}} by

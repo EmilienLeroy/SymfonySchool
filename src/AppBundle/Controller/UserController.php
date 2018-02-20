@@ -21,6 +21,7 @@ class UserController extends Controller
      */
     public function createAction(Request $request, EncoderFactoryInterface $encoderFactory)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN',null, 'tu ne passera pas jackie');
         $user = new User();
         $userform = $this->createForm(UserType::class,$user);
 

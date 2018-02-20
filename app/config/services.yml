@@ -45,3 +45,9 @@ services:
             - '@csa_guzzle.client.OMDB_api'
             - '@security.token_storage'
             - '%OMDB.key%'
+
+    AppBundle\Security\Authorization\ShowVoter:
+        tags: ['security.voter']
+
+    AppBundle\Security\Authorization\UserVoter:
+        tags: ['security.voter']
