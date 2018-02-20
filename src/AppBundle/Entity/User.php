@@ -110,8 +110,13 @@ class User implements UserInterface
         if(!$this->shows->contains($show)) $this->shows->add($show);
     }
 
-    public function removeShow()
+    public function getShows()
     {
+        return $this->shows;
+    }
 
+    public function removeShow(Show $show)
+    {
+        $this->shows->remove($show);
     }
 }

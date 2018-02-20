@@ -9,16 +9,19 @@ use AppBundle\Entity\Categories;
 use AppBundle\Entity\Show;
 use GuzzleHttp\Client;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class OMDShowFinder implements ShowFinderInterface
 {
     private $client;
     private $key;
+    private $token;
 
-    public function __construct(Client $client, $key)
+    public function __construct(Client $client,TokenStorage $token ,$key)
     {
         $this->client = $client;
         $this->key = $key;
+        $this->token = $token;
     }
 
     /**
@@ -52,7 +55,7 @@ class OMDShowFinder implements ShowFinderInterface
             $show->getDatasource(Show::DATA_SOURCE_OMDB);
             $show->getAbstract('not provided.');
             $show->setCountry($json['Country']);
-            $show->setAuthor('whoisit');
+            $show->setAuthor($this->token->getToken()->getUser());
             $show->setDate(new \DateTime($json['Released']));
             $show->setImage($json['Poster']);
             $show->setCategories($categories);

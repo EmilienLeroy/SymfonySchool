@@ -193,7 +193,7 @@ class Show
     /**
      * @param mixed $author
      */
-    public function setAuthor($author)
+    public function setAuthor(User $author)
     {
         $this->author = $author;
     }

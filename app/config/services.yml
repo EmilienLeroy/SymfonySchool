@@ -43,4 +43,5 @@ services:
         tags: ['show.finder']
         arguments:
             - '@csa_guzzle.client.OMDB_api'
+            - '@security.token_storage'
             - '%OMDB.key%'

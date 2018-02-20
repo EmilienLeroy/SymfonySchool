@@ -16,7 +16,7 @@
         </div>
         <div class="card-footer text-muted">
             Created the {{OMDB.date|date('Y-m-d')}} by
-            <a href="#">{{OMDB.author}}</a>
+            <a href="#">{{OMDB.author.fullname}}</a>
             <p style="display: inline; float: right;">Article Powered By OMDBApi</p>
         </div>
     </div>
@@ -38,7 +38,7 @@
         </div>
         <div class="card-footer text-muted">
             Created the {{s.date|date('Y-m-d')}} by
-            <a href="#">{{s.author}}</a>
+            <a href="#">{{s.author.fullname}}</a>
         </div>
     </div>
 
