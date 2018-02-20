@@ -10,6 +10,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -29,6 +30,7 @@ class Categories
     /**
      * @ORM\Column(type="string", unique=true)
      * @JMS\Expose
+     * @Assert\NotBlank
      */
     private $name;
 

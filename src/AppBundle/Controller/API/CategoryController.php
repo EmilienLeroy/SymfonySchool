@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller\API;
 
+
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,6 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Categories;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
 /**
@@ -46,5 +49,24 @@ class CategoryController extends Controller
         $data = $serializer->serialize($categories,'json');
 
         return new Response($data, Response::HTTP_OK, ['Content-Type' => 'application\json']);
+    }
+
+    /**
+     * @Method({"POST"})
+     * @Route("/categories", name="post")
+     */
+    public function createAction(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
+    {
+        $data = $serializer->deserialize($request->getContent(), Categories::class, 'json');
+
+        $error = $validator->validate($data);
+        if($error->count() == 0){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($data);
+            $em->flush();
+
+            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
+        }
+        return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
     }
 }
