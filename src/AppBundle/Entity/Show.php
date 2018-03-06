@@ -66,6 +66,7 @@ class Show
 
     /**
      * @ORM\Column(type="date")
+     * @JMS\Type("DateTime<'Y-m-d'>")
      * @JMS\Expose
      * @JMS\Groups({"show"})
      */
@@ -73,6 +74,7 @@ class Show
 
     /**
      * @ORM\Column(type="string")
+     * @JMS\Expose
      * @Assert\Image(minHeight=300, minWidth=750, groups={"create"})
      */
     private $image;
