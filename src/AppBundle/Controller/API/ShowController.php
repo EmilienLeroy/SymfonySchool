@@ -9,7 +9,7 @@
 namespace AppBundle\Controller\API;
 
 use AppBundle\Entity\Show;
-
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -59,17 +59,29 @@ class ShowController extends Controller
      */
     public function createAction(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
+        //deserialize the body json from the request into a show entity
         $data = $serializer->deserialize($request->getContent(), Show::class, 'json');
-        $data->setDatasource('Api');
-        dump($data);die;
+        //Set the db source from our db
+        $data->setDatasource(Show::DATA_SOURCE_DB);
+        
         $error = $validator->validate($data);
         if($error->count() == 0){
-            /*$category = $this->getDoctrine()
+
+            //get the category
+            $category = $this->getDoctrine()
                 ->getRepository(Categories::class)
-                ->find($data->getCategories());
+                ->findBy(['name' => $data->getCategories()->getName()]);
 
-            $data->setCategories($category);*/
+            //get the user
+            $user = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findOneBy(['fullname' => $data->getAuthor()->getFullname()]);
 
+            //set the data find into the show entity
+            $data->setCategories($category);
+            $data->setAuthor($user);
+
+            dump($data);die;
 
 
             $em = $this->getDoctrine()->getManager();
