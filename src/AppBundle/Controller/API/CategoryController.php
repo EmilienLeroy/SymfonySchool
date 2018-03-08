@@ -80,7 +80,7 @@ class CategoryController extends Controller
         $error = $validator->validate($data);
 
         if($error->count() == 0){
-            $categories->update($data);
+            $categories->updateCategories($data);
             $this->getDoctrine()->getManager()->flush();
             return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
         }

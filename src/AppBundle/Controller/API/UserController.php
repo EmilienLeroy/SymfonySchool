@@ -76,4 +76,24 @@ class UserController extends Controller
         }
         return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
     }
+
+    /**
+     * @Method({"PUT"})
+     * @Route("/users/{id}", name="put")
+     */
+    public function updateAction(User $user, Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
+    {
+        $data = $serializer->deserialize($request->getContent(),User::class,'json');
+       $error = $validator->validate($data);
+
+       if($error->count() == 0){
+           $user->updateUser($data);
+           $this->getDoctrine()->getManager()->flush();
+           return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
+       }else{
+               return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+       }
+       
+        dump($data);die;
+    }
 }

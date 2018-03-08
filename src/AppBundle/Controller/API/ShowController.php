@@ -70,7 +70,7 @@ class ShowController extends Controller
             //get the category
             $category = $this->getDoctrine()
                 ->getRepository(Categories::class)
-                ->findBy(['name' => $data->getCategories()->getName()]);
+                ->findOneBy(['name' => $data->getCategories()->getName()]);
 
             //get the user
             $user = $this->getDoctrine()
@@ -81,7 +81,7 @@ class ShowController extends Controller
             $data->setCategories($category);
             $data->setAuthor($user);
 
-            dump($data);die;
+            //dump($data);die;
 
 
             $em = $this->getDoctrine()->getManager();

@@ -139,4 +139,11 @@ class User implements UserInterface
     {
         $this->shows->remove($show);
     }
+
+    public function updateUser(User $user)
+    {
+        $this->fullname = $user->getFullname();
+        $this->email = $user->getUsername();
+        $this->password = $user->getPassword();
+    }
 }
