@@ -84,7 +84,7 @@ class UserController extends Controller
     public function updateAction(User $user, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EncoderFactoryInterface $encoderFactory)
     {
         $data = $serializer->deserialize($request->getContent(),User::class,'json');
-       $error = $validator->validate($data);
+        $error = $validator->validate($data);
 
        if($error->count() == 0){
            if($data->getPassword() != null){
@@ -96,7 +96,7 @@ class UserController extends Controller
            $this->getDoctrine()->getManager()->flush();
            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
        }else{
-               return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+             return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
        }
     }
 }

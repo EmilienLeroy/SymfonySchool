@@ -81,14 +81,21 @@ class ShowController extends Controller
             $data->setCategories($category);
             $data->setAuthor($user);
 
-            //dump($data);die;
-
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($data);
             $em->flush();
             return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
         }
         return new Response('no',Response::HTTP_BAD_REQUEST,['Content-Type'=>'application/json']);
+    }
+
+    /**
+     * @Method({"PUT"})
+     * @Route("/shows/{id}", name="put")
+     */
+    public function updateAction(Show $show,Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
+    {
+        $data = $serializer->deserialize($request->getContent(),Show::class,'json');
+        dump($data);die;
     }
 }
