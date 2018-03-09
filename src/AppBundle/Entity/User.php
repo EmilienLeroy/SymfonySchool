@@ -142,8 +142,8 @@ class User implements UserInterface
 
     public function updateUser(User $user)
     {
-        $this->fullname = $user->getFullname();
-        $this->email = $user->getUsername();
-        $this->password = $user->getPassword();
+        if($user->getFullname() != null) $this->fullname = $user->getFullname();
+        if($user->getUsername() != null) $this->email = $user->getUsername();
+        if($user->getPassword() != null) $this->password = $user->getPassword();
     }
 }

@@ -81,19 +81,22 @@ class UserController extends Controller
      * @Method({"PUT"})
      * @Route("/users/{id}", name="put")
      */
-    public function updateAction(User $user, Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
+    public function updateAction(User $user, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EncoderFactoryInterface $encoderFactory)
     {
         $data = $serializer->deserialize($request->getContent(),User::class,'json');
        $error = $validator->validate($data);
 
        if($error->count() == 0){
+           if($data->getPassword() != null){
+                $encoder = $encoderFactory->getEncoder($user);
+                $hashPassword = $encoder->encodePassword($data->getPassword(),null);
+                $data->setPassword($hashPassword);
+           }
            $user->updateUser($data);
            $this->getDoctrine()->getManager()->flush();
            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
        }else{
                return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
        }
-       
-        dump($data);die;
     }
 }
