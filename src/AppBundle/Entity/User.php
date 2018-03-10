@@ -54,7 +54,7 @@ class User implements UserInterface
      * @ORM\Column
      * @Assert\Email
      * @JMS\Expose
-     * @JMS\Groups({"user"})
+     * @JMS\Groups({"user", "show"})
      */
     private $email;
 

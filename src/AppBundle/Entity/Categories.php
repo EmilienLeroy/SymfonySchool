@@ -31,6 +31,7 @@ class Categories
      * @ORM\Column(type="string", unique=true)
      * @JMS\Expose
      * @Assert\NotBlank
+     * @JMS\Groups({"categories", "show"})
      */
     private $name;
 

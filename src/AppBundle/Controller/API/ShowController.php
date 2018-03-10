@@ -96,6 +96,29 @@ class ShowController extends Controller
     public function updateAction(Show $show,Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
         $data = $serializer->deserialize($request->getContent(),Show::class,'json');
-        dump($data);die;
+        $error = $validator->validate($data);
+
+        if($error->count() == 0){
+            //get the category
+            if($data->getCategories() != null){
+                $category = $this->getDoctrine()
+                    ->getRepository(Categories::class)
+                    ->findOneBy(['name' => $data->getCategories()->getName()]);
+                $data->setCategories($category);
+                }
+            //get the user
+            if($data->getAuthor() != null){
+                $user = $this->getDoctrine()
+                    ->getRepository(User::class)
+                    ->findOneBy(['fullname' => $data->getAuthor()->getFullname()]);
+                $data->setAuthor($user);    
+            }
+            
+            $show->updateShow($data);
+            $this->getDoctrine()->getManager()->flush();
+            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
+        }else{
+            return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Categories;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -139,7 +140,7 @@ class Show
     /**
      * @param mixed $categories
      */
-    public function setCategories($categories)
+    public function setCategories(Categories $categories)
     {
         $this->categories = $categories;
     }
@@ -246,6 +247,16 @@ class Show
     public function setImage($image)
     {
         $this->image = $image;
+    }
+
+    public function updateShow(Show $show)
+    {
+        if($show->getName() != null) $this->name = $show->getName();
+        if($show->getAbstract() != null) $this->abstract = $show->getAbstract();
+        if($show->getAuthor() != null) $this->author = $show->getAuthor();
+        if($show->getCategories() != null) $this->categories = $show->getCategories();
+        if($show->getImage() != null) $this->Image = $show->getImage();
+        if($show->getCountry() != null) $this->country = $show->getCountry();
     }
 
 
