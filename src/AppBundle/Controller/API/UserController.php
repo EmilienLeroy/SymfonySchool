@@ -99,4 +99,22 @@ class UserController extends Controller
              return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
        }
     }
+
+    /**
+     * @Method({"DELETE"})
+     * @Route("/users/{id}", name="delete")
+     */
+    public function deleteAction($id)
+    {
+        $user = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findOneByid($id);
+        if($user != null){
+            $this->getDoctrine()->getManager()->remove($user);
+            $this->getDoctrine()->getManager()->flush();
+            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);    
+        }else{
+            return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+        }
+    }
 }

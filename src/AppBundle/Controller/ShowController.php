@@ -157,7 +157,6 @@ class ShowController extends Controller
         $doctrine = $this->getDoctrine();
         $delete = $request->request->get('show_id');
         $repo = $doctrine->getRepository(Show::class);
-        dump($doctrine);
         $show = $repo->findOneById($delete);
 
         if(empty($show)){

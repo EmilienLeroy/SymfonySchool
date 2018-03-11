@@ -121,4 +121,23 @@ class ShowController extends Controller
             return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
         }
     }
+
+    
+    /**
+     * @Method({"DELETE"})
+     * @Route("/shows/{id}", name="delete")
+     */
+    public function deleteAction($id)
+    {
+        $shows = $this->getDoctrine()
+            ->getRepository(Show::class)
+            ->findOneByid($id);
+        if($shows != null){
+            $this->getDoctrine()->getManager()->remove($shows);
+            $this->getDoctrine()->getManager()->flush();
+            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);    
+        }else{
+            return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+        }
+    }
 }
