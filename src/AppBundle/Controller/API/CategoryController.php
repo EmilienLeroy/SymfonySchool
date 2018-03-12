@@ -65,9 +65,9 @@ class CategoryController extends Controller
             $em->persist($data);
             $em->flush();
 
-            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
+            return new Response('OK: Categories create', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
         }
-        return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+        return new Response('Error: '.$error,Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
     }
 
     /**
@@ -82,9 +82,9 @@ class CategoryController extends Controller
         if($error->count() == 0){
             $categories->updateCategories($data);
             $this->getDoctrine()->getManager()->flush();
-            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
+            return new Response('OK: Categories update', Response::HTTP_ACCEPTED,['Content-Type' => 'application/json']);
         }
-        return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+        return new Response('Error: '.$error,Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
     }
 
     /**
@@ -99,9 +99,9 @@ class CategoryController extends Controller
         if($categories != null){
             $this->getDoctrine()->getManager()->remove($categories);
             $this->getDoctrine()->getManager()->flush();
-            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);    
+            return new Response('OK: Categories delete', Response::HTTP_OK,['Content-Type' => 'application/json']);    
         }else{
-            return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+            return new Response('Error: Categories not delete',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
         }
     }
 }

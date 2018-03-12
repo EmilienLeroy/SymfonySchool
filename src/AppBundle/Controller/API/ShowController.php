@@ -84,9 +84,9 @@ class ShowController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($data);
             $em->flush();
-            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
+            return new Response('OK: Show create', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
         }
-        return new Response('no',Response::HTTP_BAD_REQUEST,['Content-Type'=>'application/json']);
+        return new Response('Error: '.$error,Response::HTTP_BAD_REQUEST,['Content-Type'=>'application/json']);
     }
 
     /**
@@ -116,9 +116,9 @@ class ShowController extends Controller
             
             $show->updateShow($data);
             $this->getDoctrine()->getManager()->flush();
-            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
+            return new Response('OK: Show update', Response::HTTP_ACCEPTED,['Content-Type' => 'application/json']);
         }else{
-            return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+            return new Response('Error: '.$error,Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
         }
     }
 
@@ -135,9 +135,9 @@ class ShowController extends Controller
         if($shows != null){
             $this->getDoctrine()->getManager()->remove($shows);
             $this->getDoctrine()->getManager()->flush();
-            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);    
+            return new Response('OK: Show delete', Response::HTTP_OK,['Content-Type' => 'application/json']);    
         }else{
-            return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+            return new Response('Error: Show not delete',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
         }
     }
 }

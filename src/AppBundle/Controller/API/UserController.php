@@ -72,9 +72,9 @@ class UserController extends Controller
             $em->persist($data);
             $em->flush();
 
-            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
+            return new Response('OK: User created', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
         }
-        return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+        return new Response('Error: '.$error,Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
     }
 
     /**
@@ -94,9 +94,9 @@ class UserController extends Controller
            }
            $user->updateUser($data);
            $this->getDoctrine()->getManager()->flush();
-           return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);
+           return new Response('OK: User update', Response::HTTP_ACCEPTED,['Content-Type' => 'application/json']);
        }else{
-             return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+             return new Response('Error:'.$error,Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
        }
     }
 
@@ -112,9 +112,9 @@ class UserController extends Controller
         if($user != null){
             $this->getDoctrine()->getManager()->remove($user);
             $this->getDoctrine()->getManager()->flush();
-            return new Response('OK', Response::HTTP_CREATED,['Content-Type' => 'application/json']);    
+            return new Response('OK: User delete', Response::HTTP_OK,['Content-Type' => 'application/json']);    
         }else{
-            return new Response('no',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
+            return new Response('Error: User not delete',Response::HTTP_BAD_REQUEST, ['Content-Type' => 'application/json']);
         }
     }
 }
