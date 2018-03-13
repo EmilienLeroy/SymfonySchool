@@ -85,3 +85,5 @@ csa_guzzle:
         OMDB_api:
             config:
                 base_uri: 'http://www.omdbapi.com/'
+
+nelmio_api_doc: ~
