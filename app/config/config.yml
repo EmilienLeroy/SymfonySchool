@@ -86,4 +86,3 @@ csa_guzzle:
             config:
                 base_uri: 'http://www.omdbapi.com/'
 
-nelmio_api_doc: ~

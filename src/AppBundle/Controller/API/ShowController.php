@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\SerializationContext;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Model;
 
 /**
@@ -33,14 +32,6 @@ class ShowController extends Controller
     /**
      * @Method({"GET"})
      * @Route("/shows", name="list")
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns all shows",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=Show::class)
-     *     )
-     * )
      */
     public function listAction(SerializerInterface $serializer)
     {
