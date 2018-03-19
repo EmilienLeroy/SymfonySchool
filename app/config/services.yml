@@ -51,3 +51,11 @@ services:
 
     AppBundle\Security\Authorization\UserVoter:
         tags: ['security.voter']
+
+    Appbundle\Security\Authentication\ApiUserPasswordGuard:
+        arguments:
+            $encoderFactory: '@security.encoder_factory.generic'
+
+
+    AppBundle\Serializer\Listener\ShowHandler:
+        tags: ['jms_serializer.event_handler']
