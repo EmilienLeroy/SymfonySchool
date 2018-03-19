@@ -11,6 +11,7 @@ namespace AppBundle\Controller\API;
 use AppBundle\Entity\Show;
 use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -35,6 +36,7 @@ class ShowController extends Controller
      */
     public function listAction(SerializerInterface $serializer)
     {
+        throw new Exception('mdrrr');
         $shows = $this->getDoctrine()->getRepository('AppBundle:Show')->findAll();
         $serialzationContext = SerializationContext::create();
         $data = $serializer->serialize($shows,'json',$serialzationContext->setGroups(['show']));
