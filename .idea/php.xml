@@ -56,8 +56,7 @@
       <path value="$PROJECT_DIR$/vendor/jms/serializer" />
       <path value="$PROJECT_DIR$/vendor/jms/serializer-bundle" />
       <path value="$PROJECT_DIR$/vendor/jms/metadata" />
-      <path value="$PROJECT_DIR$/vendor/nelmio/api-doc-bundle" />
-      <path value="$PROJECT_DIR$/vendor/michelf/php-markdown" />
+      <path value="$PROJECT_DIR$/vendor/bin/.phpunit" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.5.0" />

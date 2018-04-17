@@ -45,7 +45,6 @@ class ApiUserPasswordGuard extends AbstractGuardAuthenticator
     public function checkCredentials($credentials, UserInterface $user)
     {
         $encoder = $this->encoderFactory->getEncoder($user);
-
         if($encoder->isPasswordValid($user->getPassword(),$credentials['password'],null)){
 
             return true;
