@@ -31,8 +31,14 @@ class OMDShowFinder implements ShowFinderInterface
     public function findByName($query)
     {
         $result = $this->client->get('/?apikey='.$this->key.'&type=series&t='.$query['name']);
+        $json = \GuzzleHttp\json_decode($result->getBody(), true);
 
-        return $this->convertToShow(\GuzzleHttp\json_decode($result->getBody(),true));
+
+        if ($json['Response'] == 'False') {
+            return [];
+        }
+
+        return $this->convertToShow($json);
     }
 
     /**
