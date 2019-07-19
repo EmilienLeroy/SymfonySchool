@@ -21,6 +21,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * @Route(name="show")
@@ -28,7 +29,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class ShowController extends Controller
 {
     /**
-     * @Route("/show",name="_list")
+     * @Route("/",name="_list")
      */
     public function listAction(Request $request, ShowFinder $showFinder)
     {
@@ -70,7 +71,9 @@ class ShowController extends Controller
             $generatedFileName = $fileUploader->upload($show->getTmpimage(),$show->getCategories()->getName());
 
             $show->setImage($generatedFileName);
+            $show->setDatasource(Show::DATA_SOURCE_DB);
 
+            $show->setAuthor($this->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($show);
             $em->flush();
@@ -154,7 +157,6 @@ class ShowController extends Controller
         $doctrine = $this->getDoctrine();
         $delete = $request->request->get('show_id');
         $repo = $doctrine->getRepository(Show::class);
-        dump($doctrine);
         $show = $repo->findOneById($delete);
 
         if(empty($show)){
@@ -175,4 +177,5 @@ class ShowController extends Controller
         return $this->redirectToRoute('show_list');
 
     }
+
 }

@@ -30,6 +30,8 @@ Install the project. Answer to the question with your database address, port and
 composer install
 ```
 
+### Database
+
 Create the database with doctrine.
 
 ```
@@ -74,20 +76,28 @@ Now you can connect to the project with this address :
 http://localhost:8000
 ```
 
+### OMDB
+
+For use the OMDB api you need to have a [KEY](http://www.omdbapi.com/).
+When you have this key paste it into the **config/parameter.yml** and replace this :
+
+```
+OMDB.key: YOUR_OMDB_KEY
+```
+
 ## Documentation
 
-Coming soon ...
+You can read the doc for the api at this address :
+
+```
+http://localhost:8000/api/doc
+```
 
 Debug service :
 
 ```
 bin/console debug:container ShowFinder
 ```
-
-Injecteur dependence:
-
-var/cache/dev/appDevDebugProjectContainer
-
 
 ## License
 

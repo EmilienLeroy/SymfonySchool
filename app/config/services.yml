@@ -43,4 +43,19 @@ services:
         tags: ['show.finder']
         arguments:
             - '@csa_guzzle.client.OMDB_api'
+            - '@security.token_storage'
             - '%OMDB.key%'
+
+    AppBundle\Security\Authorization\ShowVoter:
+        tags: ['security.voter']
+
+    AppBundle\Security\Authorization\UserVoter:
+        tags: ['security.voter']
+
+    Appbundle\Security\Authentication\ApiUserPasswordGuard:
+        arguments:
+            $encoderFactory: '@security.encoder_factory.generic'
+
+
+    AppBundle\Serializer\Listener\ShowHandler:
+        tags: ['jms_serializer.event_handler']

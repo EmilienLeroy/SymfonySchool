@@ -1,0 +1,27 @@
+{%  extends "show/base.html.twig" %}
+{% block headtitle %}
+    <h1 class="my-4">Update
+        <small>Show</small>
+    </h1>
+{% endblock headtitle %}
+
+{% block content %}
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Show</th>
+            </tr>
+        {% for user in users %}
+            <tr>
+                <td><a href="#">{{user.fullname}}</a></td>
+                <td>{{ user.username }}</td>
+                <td>{% for show in user.shows %}
+                        {{ show.name }}
+                        {%  if not loop.last %},{% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+{% endblock content %}

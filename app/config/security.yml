@@ -2,23 +2,62 @@
 # https://symfony.com/doc/current/security.html
 security:
 
+    encoders:
+        Symfony\Component\Security\Core\User\User: bcrypt
+        AppBundle\Entity\User: bcrypt
+
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
-            memory: ~
+            memory:
+               users:
+                   emilien:
+                       password: '$2y$13$n4F2bEgtZ3/Gq0/a7V.CmOGrW2omUg51XKuZrnPeIPc2.TXKoQ5la'
+                       roles: 'ROLE_USER'
 
+        database:
+            entity:
+                class: AppBundle\Entity\User
+                property: email
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        api_doc:
+            pattern: ^/api/doc
+            security: false
+
+        login:
+            pattern: ^/login$
+            anonymous: ~
+
+        api:
+            pattern: ^/api
+            stateless: true
+            provider: database
+            guard:
+                authenticators:
+                    - AppBundle\Security\Authentication\ApiUserPasswordGuard
+
+        secured_area:
+            pattern: ^/
+            provider: database
+            form_login:
+                 login_path: /login
+                 check_path: /login_check
+                 username_parameter: email
+                 password_parameter: password
+                 always_use_default_target_path: true
+            logout: ~
+
         main:
             anonymous: ~
-            # activate different ways to authenticate
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
 
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+   # access_control:
+    #    -
+            #path: ^/user
+
+          #  roles: ['ROLE_ADMIN']
